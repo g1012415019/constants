@@ -1,6 +1,6 @@
 <h1 align="center"> constants </h1>
 
-> A simple and easy-to-use enumeration extension package to help you manage enumerations in your project more conveniently, supporting Laravel and Lumen.
+> A simple and easy-to-use enumeration extension package to help you manage enumerations in your project more conveniently
 > - 一个简单好用的枚举扩展包，帮助你更方便地管理项目中的枚举
 
 ## 本扩展包在 [jiannei/laravel-enum](https://github.com/jiannei/laravel-enum) 修改而来
@@ -100,15 +100,15 @@ ExampleConstant::getValue('MODERATOR');// 1
 
 ```php
 
-// 1. 不存在语言包的情况，返回中文描述
-ExampleConstant::getDescription(UserTypeEnum::ADMINISTRATOR);// Administrator
+// 返回中文描述
+ExampleConstant::getDescription(ExampleConstant::CANCEL_ACCOUNT);// 注销账号
 
 // 补充：也可以先实例化常量对象，然后再根据对象实例来获取常量描述
-$responseEnum = new ExampleEnum(ExampleEnum::ADMINISTRATOR);
+$responseEnum = new ExampleEnum(ExampleEnum::CANCEL_ACCOUNT);
 $responseEnum->description;// 管理员
 
 // 其他方式
-ExampleConstant::ADMINISTRATOR()->description;// 管理员
+ExampleConstant::CANCEL_ACCOUNT()->description;// 管理员
 
 ```
 
@@ -129,20 +129,20 @@ ExampleConstant::hasKey('ADMIN');// false
 
 ```php
 // 方式一：new 传入常量的值
-$administrator1 = new ExampleConstant(ExampleConstant::ADMINISTRATOR);
+$administrator1 = new ExampleConstant(ExampleConstant::CANCEL_ACCOUNT);
 
 // 方式二：fromValue
 $administrator2 = ExampleConstant::fromValue(0);
 
 // 方式三：fromKey
-$administrator3 = ExampleConstant::fromKey('ADMINISTRATOR');
+$administrator3 = ExampleConstant::fromKey('CANCEL_ACCOUNT');
 
 // 方式四：magic
-$administrator4 = ExampleConstant::ADMINISTRATOR();
+$administrator4 = ExampleConstant::CANCEL_ACCOUNT();
 
 // 方式五：make，尝试根据「常量的值」或「常量的名称」实例化对象常量，实例失败时返回原先传入的值
 $administrator5 = ExampleConstant::make(0); // 此处尝试根据「常量的值」实例化
-$administrator6 = ExampleConstant::make('ADMINISTRATOR'); // 此处尝试根据「常量的名称」实例化
+$administrator6 = ExampleConstant::make('CANCEL_ACCOUNT'); // 此处尝试根据「常量的名称」实例化
 ```
 
 - toArray
