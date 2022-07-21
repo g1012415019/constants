@@ -1,6 +1,7 @@
 <h1 align="center"> constants </h1>
 
-> A simple and easy-to-use enumeration extension package to help you manage enumerations in your project more conveniently
+> A simple and easy-to-use enumeration extension package to help you manage enumerations in your project more
+> conveniently
 > - 一个简单好用的枚举扩展包，帮助你更方便地管理项目中的枚举
 
 ## 本扩展包在 [jiannei/laravel-enum](https://github.com/jiannei/laravel-enum) 修改而来
@@ -96,16 +97,16 @@ class ExampleConstant extends Constant
 ExampleConstant::SIGN_IN;// 0
 
 // 获取所有已定义常量的名称
-$keys = ExampleConstant::getKeys();// ['ADMINISTRATOR', 'MODERATOR', 'SUBSCRIBER', 'SUPER_ADMINISTRATOR']
+$keys = ExampleConstant::getKeys();// ['SIGN_IN ', 'REGISTER', 'RETRIEVE_PASSWORD ', 'CANCEL_ACCOUNT']
 
 // 根据常量的值获取常量的名称
-ExampleConstant::getKey(1);// MODERATOR
+ExampleConstant::getKey(1);// REGISTER 
 
 // 获取所有已定义常量的值
 $values = ExampleConstant::getValues();// [0, 1, 2, 3]
 
 // 根据常量的名称获取常量的值
-ExampleConstant::getValue('MODERATOR');// 1
+ExampleConstant::getValue('REGISTER ');// 1
 ```
 
 - 本地化描述
@@ -117,10 +118,10 @@ ExampleConstant::getDescription(ExampleConstant::CANCEL_ACCOUNT);// 注销账号
 
 // 补充：也可以先实例化常量对象，然后再根据对象实例来获取常量描述
 $responseEnum = new ExampleEnum(ExampleEnum::CANCEL_ACCOUNT);
-$responseEnum->description;// 管理员
+$responseEnum->description;// 注销账号
 
 // 其他方式
-ExampleConstant::CANCEL_ACCOUNT()->description;// 管理员
+ExampleConstant::CANCEL_ACCOUNT()->description;// 注销账号
 
 ```
 
@@ -133,8 +134,8 @@ ExampleConstant::hasValue(-1);// false
 
 // 检查定义的常量中是否包含某个「常量名称」 
 
-ExampleConstant::hasKey('MODERATOR');// true
-ExampleConstant::hasKey('ADMIN');// false
+ExampleConstant::hasKey('CANCEL_ACCOUNT ');// true
+ExampleConstant::hasKey('ACCOUNT ');// false
 ```
 
 - 枚举实例化：枚举实例化以后可以方便地通过对象实例访问枚举的 key、value 以及 description 属性的值。
@@ -155,6 +156,7 @@ Asfop\Tests\Constants\ExampleConstant Object
 
 // 方式三：fromKey
 $administrator3 = ExampleConstant::fromKey('CANCEL_ACCOUNT');
+
 Asfop\Tests\Constants\ExampleConstant Object
 (
     [description] => 注销账号
@@ -204,10 +206,13 @@ $array = ExampleConstant::toSelectArray();
 */
 
 ```
+
 ## 参考
+
 - [jiannei/laravel-enum](https://github.com/jiannei/laravel-enum)
 - [hyperf/constants](https://github.com/hyperf/constants)
 - [PHP 使用反射获取常量名、值及注释](https://blog.csdn.net/nbaqq2010/article/details/124197478)
+
 ## License
 
 MIT
