@@ -14,12 +14,6 @@ abstract class Constant
     public $value;
 
     /**
-     * 带翻译message
-     * @var string
-     */
-    protected static $functionTranslateMessage = 'translateMessage';
-
-    /**
      * 原样输出message
      * @var string
      */
@@ -152,14 +146,11 @@ abstract class Constant
             return null;
         }
 
-        $annotationValue = $info['annotation']['value'] ?? '';
+        $description = $info['annotation']['value'] ?? '';
         switch ($info['annotation']['function']) {
-            case self::$functionTranslateMessage:
-                $result = self::annotationByTranslateMessage($annotationValue);
-                break;
             case self::$functionMessage:
             default:
-                $result = self::annotationByMessage($annotationValue);
+                $result = static::message($description, $info['key'], $info['value']);
                 break;
         }
 
@@ -192,7 +183,7 @@ abstract class Constant
             function ($constantValue) {
                 return new static($constantValue);
             },
-            static::getConstants()
+            array_column(static::getConstants(), 'value')
         );
     }
 
@@ -262,31 +253,14 @@ abstract class Constant
 
     /**
      * 解析注解枚举Message
-     * @param $value
+     * @param mixed $description 描述
+     * @param mixed $key key
+     * @param mixed $value 值
      * @return mixed
      */
-    protected static function annotationByMessage($value)
+    protected static function message($description, $key, $value)
     {
-        return $value;
-    }
-
-    /**
-     * 解析注解枚举TranslateMessage
-     * @param $value
-     * @return string
-     */
-    protected static function annotationByTranslateMessage($value): string
-    {
-        return self::lang($value);
-    }
-
-    /**
-     * @param $value
-     * @return string
-     */
-    protected static function lang($value): string
-    {
-        return 'lang-' . $value;
+        return $description;
     }
 
     public static function toArray(): array

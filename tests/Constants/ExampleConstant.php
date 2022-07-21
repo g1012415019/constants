@@ -7,7 +7,7 @@ use Asfop\Constants\Constant;
 class ExampleConstant extends Constant
 {
     /**
-     * @translateMessage("登录")
+     * @message("登录")
      */
     const SIGN_IN = 0;
     /**
@@ -15,12 +15,24 @@ class ExampleConstant extends Constant
      */
     const REGISTER = 1;
     /**
-     * @translateMessage("找回密码")
+     * @message("找回密码")
      */
     const RETRIEVE_PASSWORD = 2;
     /**
-     * @translateMessage("注销账号")
+     * @message("注销账号")
      */
     const CANCEL_ACCOUNT = 3;
+
+    /**
+     * 重新从注解里面拿到的Message
+     * @param mixed $description 描述
+     * @param mixed $key key
+     * @param mixed $value 值
+     * @return mixed
+     */
+    protected static function message($description, $key, $value)
+    {
+        return $description;
+    }
 
 }

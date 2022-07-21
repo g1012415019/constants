@@ -44,7 +44,7 @@ $ composer require "asfop/constants"
 
 ## 使用
 
-更为具体的使用可以查看测试用例：[https://github.com/Jiannei/laravel-enum/tree/main/tests](https://github.com/Jiannei/laravel-enum/tree/main/tests)
+更为具体的使用可以查看测试用例：[https://github.com/g1012415019/constants/blob/main/tests](https://github.com/g1012415019/constants/tree/main/tests)
 
 ### 常规使用
 
@@ -53,26 +53,38 @@ $ composer require "asfop/constants"
 ```php
 <?php
 
-namespace Asfop\Constants\ExampleConstant;
+use Asfop\Constants\Constant;
 
 class ExampleConstant extends Constant
 {
     /**
-     * @translateMessage("登录")
+     * @message("登录")
      */
     const SIGN_IN = 0;
     /**
-     * @translateMessage("注册")
+     * @message("注册")
      */
     const REGISTER = 1;
     /**
-     * @translateMessage("找回密码")
+     * @message("找回密码")
      */
     const RETRIEVE_PASSWORD = 2;
     /**
-     * @translateMessage("注销账号")
+     * @message("注销账号")
      */
     const CANCEL_ACCOUNT = 3;
+
+//    /**
+//     * 重新从注解里面拿到的Message
+//     * @param mixed $description 描述
+//     * @param mixed $key key
+//     * @param mixed $value 值
+//     * @return mixed
+//     */
+//    protected static function message($description, $key, $value)
+//    {
+//        return $description;
+//    }
 
 }
 ```
@@ -134,15 +146,32 @@ $administrator1 = new ExampleConstant(ExampleConstant::CANCEL_ACCOUNT);
 // 方式二：fromValue
 $administrator2 = ExampleConstant::fromValue(0);
 
+Asfop\Tests\Constants\ExampleConstant Object
+(
+    [description] => 登录
+    [key] => SIGN_IN
+    [value] => 0
+)
+
 // 方式三：fromKey
 $administrator3 = ExampleConstant::fromKey('CANCEL_ACCOUNT');
+Asfop\Tests\Constants\ExampleConstant Object
+(
+    [description] => 注销账号
+    [key] => CANCEL_ACCOUNT
+    [value] => 3
+)
 
 // 方式四：magic
 $administrator4 = ExampleConstant::CANCEL_ACCOUNT();
 
-// 方式五：make，尝试根据「常量的值」或「常量的名称」实例化对象常量，实例失败时返回原先传入的值
-$administrator5 = ExampleConstant::make(0); // 此处尝试根据「常量的值」实例化
-$administrator6 = ExampleConstant::make('CANCEL_ACCOUNT'); // 此处尝试根据「常量的名称」实例化
+Asfop\Tests\Constants\ExampleConstant Object
+(
+    [description] => 注销账号
+    [key] => CANCEL_ACCOUNT
+    [value] => 3
+)
+
 ```
 
 - toArray
@@ -163,7 +192,7 @@ $array = ExampleConstant::toArray();
 - toSelectArray
 
 ```php
-$array = ExampleConstant::toSelectArray();// 支持多语言配置
+$array = ExampleConstant::toSelectArray();
 
 /*
 [
@@ -173,6 +202,7 @@ $array = ExampleConstant::toSelectArray();// 支持多语言配置
   3 => '注销账号',
 ]
 */
+
 ```
 ## 参考
 - [jiannei/laravel-enum](https://github.com/jiannei/laravel-enum)
