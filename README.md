@@ -76,7 +76,7 @@ class ExampleConstant extends Constant
     const CANCEL_ACCOUNT = 3;
 
 //    /**
-//     * 重新从注解里面拿到的Message
+//     * 重写从注解里面拿到的Message
 //     * @param mixed $description 描述
 //     * @param mixed $key key
 //     * @param mixed $value 值
