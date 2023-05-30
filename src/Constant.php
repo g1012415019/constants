@@ -19,6 +19,11 @@ abstract class Constant
      */
     protected static $functionMessage = 'message';
 
+    /**
+     * @var string
+     */
+    protected static $functionColor = 'color';
+
     public function __construct($enumValue, bool $strict = true)
     {
         $this->description = static::getDescription($enumValue);
@@ -72,7 +77,7 @@ abstract class Constant
             foreach ($constants as $constant => $constantValue) {
                 $result[$constant] = [
                     //这里只读取一个注解
-                    'annotation' => self::parse(self::getConstantDocComment($constant))[0] ?? [],
+                    'annotation' => self::parse(self::getConstantDocComment($constant)) ?? [],
                     'key' => $constant,
                     'value' => $constantValue
                 ];
@@ -134,10 +139,17 @@ abstract class Constant
     //1. 不存在语言包的情况，返回较为友好的英文描述
     public static function getDescription($value): ?string
     {
-        return self::getLocalizedDescription($value);
+        return self::getLocalizedAnnotation($value, self::$functionMessage);
     }
 
-    protected static function getLocalizedDescription($value): ?string
+
+    //1. 不存在语言包的情况，返回较为友好的英文描述
+    public static function getColor($value): ?string
+    {
+        return self::getLocalizedAnnotation($value,  self::$functionColor);
+    }
+
+    protected static function getLocalizedAnnotation($value, $annotaionName): ?string
     {
 
         $info = self::getFromValueInfo($value);
@@ -146,9 +158,15 @@ abstract class Constant
             return null;
         }
 
-        $description = $info['annotation']['value'] ?? '';
-        switch ($info['annotation']['function']) {
+        $annotation = [];
+        foreach ($info['annotation'] as $index => $item) {
+            if ($item['function'] === $annotaionName) $annotation = $item;
+        }
+        
+        $description = $annotation['value'] ?? '';
+        switch ($annotation['function']) {
             case self::$functionMessage:
+            case self::$functionColor:
             default:
                 $result = static::message($description, $info['key'], $info['value']);
                 break;
@@ -156,7 +174,7 @@ abstract class Constant
 
         return $result;
     }
-
+    
     public static function getFromValueInfo($value)
     {
         return array_column(static::getConstants(), null, 'value')[$value] ?? null;
