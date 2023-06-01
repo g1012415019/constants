@@ -76,7 +76,6 @@ abstract class Constant
             $result = [];
             foreach ($constants as $constant => $constantValue) {
                 $result[$constant] = [
-                    //这里只读取一个注解
                     'annotation' => self::parse(self::getConstantDocComment($constant)) ?? [],
                     'key' => $constant,
                     'value' => $constantValue
@@ -154,15 +153,15 @@ abstract class Constant
 
         $info = self::getFromValueInfo($value);
 
-        if (is_null($info)) {
-            return null;
-        }
+        if (is_null($info)) return null;
 
-        $annotation = [];
-        foreach ($info['annotation'] as $index => $item) {
+        $annotation = null;
+        foreach ($info['annotation'] as $item) {
             if ($item['function'] === $annotaionName) $annotation = $item;
         }
-        
+
+        if (is_null($annotation)) return null;
+
         $description = $annotation['value'] ?? '';
         switch ($annotation['function']) {
             case self::$functionMessage:
@@ -174,7 +173,7 @@ abstract class Constant
 
         return $result;
     }
-    
+
     public static function getFromValueInfo($value)
     {
         return array_column(static::getConstants(), null, 'value')[$value] ?? null;
