@@ -141,14 +141,27 @@ abstract class Constant
         return self::getLocalizedAnnotation($value, self::$functionMessage);
     }
 
-
-    //1. 不存在语言包的情况，返回较为友好的英文描述
     public static function getColor($value): ?string
     {
-        return self::getLocalizedAnnotation($value,  self::$functionColor);
+        return self::getLocalizedAnnotation($value, self::$functionColor);
     }
 
-    protected static function getLocalizedAnnotation($value, $annotaionName): ?string
+    public static function getAnnotationOne($value, string $annotationName): ?string
+    {
+        return self::getLocalizedAnnotation($value, $annotationName);
+    }
+
+    public static function getAnnotationList($value): ?array
+    {
+
+        $info = self::getFromValueInfo($value);
+
+        if (is_null($info)) return null;
+
+        return $info['annotation'];
+    }
+
+    protected static function getLocalizedAnnotation($value, $annotationName): ?string
     {
 
         $info = self::getFromValueInfo($value);
@@ -157,7 +170,7 @@ abstract class Constant
 
         $annotation = null;
         foreach ($info['annotation'] as $item) {
-            if ($item['function'] === $annotaionName) $annotation = $item;
+            if ($item['function'] === $annotationName) $annotation = $item;
         }
 
         if (is_null($annotation)) return null;

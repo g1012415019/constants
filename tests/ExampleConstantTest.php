@@ -69,6 +69,19 @@ class ExampleConstantTest extends TestCase
         $this->assertEquals('注册', $exampleConstant->description);
     }
 
+    // 获取指定枚举单个注解
+    public function testAnnotationOne()
+    {
+        $color = ExampleConstant::getAnnotationOne(ExampleConstant::CANCEL_ACCOUNT, 'color');
+        $this->assertEquals('注销枚举的颜色', $color);
+    }
+
+    // 获取指定枚举全部注解
+    public function testAnnotationList()
+    {
+        $this->assertEquals('注销枚举的注解', ExampleConstant::getAnnotationList(ExampleConstant::CANCEL_ACCOUNT));
+    }
+
     public function testToArray()
     {
         $this->assertEquals([

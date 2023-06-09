@@ -207,6 +207,38 @@ $array = ExampleConstant::toSelectArray();
 
 ```
 
+- 获取枚举注解
+
+```php
+
+// 枚举可以存在多个注解，枚举定义：
+/**
+ * @message("注销账号")
+ * @color("danger")
+ * ...
+ */
+const CANCEL_ACCOUNT = 0;
+
+// 使用，获取指定枚举单个注解值
+ExampleConstant::getAnnotationOne(ExampleConstant::CANCEL_ACCOUNT, 'color');// danger
+// 获取指定枚举所有注解值
+ExampleConstant::getAnnotationList(ExampleConstant::CANCEL_ACCOUNT);
+
+/*
+[
+  {
+    "function": "message",
+    "value": "注销账号"
+  },
+  {
+    "function": "color",
+    "value": "danger"
+  }
+]
+*/
+
+```
+
 ## 参考
 
 - [jiannei/laravel-enum](https://github.com/jiannei/laravel-enum)
