@@ -20,6 +20,7 @@ class ExampleConstant extends Constant
     const RETRIEVE_PASSWORD = 2;
     /**
      * @message("注销账号")
+     * @color("danger")
      */
     const CANCEL_ACCOUNT = 3;
 
