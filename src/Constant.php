@@ -141,6 +141,43 @@ abstract class Constant
         return self::getLocalizedAnnotation($value, self::$functionMessage);
     }
 
+    // 返回描述多语言，默认中文
+    public static function getDescriptionI18n(string $value, string $lang): ?string
+    {
+        $lang = strtolower($lang);
+        $info = self::getFromValueInfo($value);
+
+        if (is_null($info)) return null;
+
+        $annotation = null;
+        // 繁体语言组
+        $traditionalArr = ['zh-cht', 'zh-tw', 'zh-hk', 'zh-mo'];
+        // 是否是繁体语言
+        $isTraditional = in_array($lang, $traditionalArr);
+        foreach ($info['annotation'] as $item) {
+            // 匹配语言
+            if (strpos(strtolower($item['function']), "message$lang") !== false) {
+                $annotation = $item;
+                break;
+            }
+            // 繁体语言可以匹配多个语种
+            if ($isTraditional) {
+                foreach ($traditionalArr as $traditional) {
+                    // 匹配语言
+                    if (strpos(strtolower($item['function']), "message$traditional") !== false) {
+                        $annotation = $item;
+                        break;
+                    }
+                }
+                // 匹配到则跳出
+                if (!is_null($annotation)) break;
+            }
+        }
+        // 未匹配到语言，则读取message
+        if (is_null($annotation)) return self::getDescription($value);
+        return $annotation['value'] ?? '';
+    }
+
     public static function getColor($value): ?string
     {
         return self::getLocalizedAnnotation($value, self::$functionColor);
