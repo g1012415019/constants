@@ -151,7 +151,7 @@ abstract class Constant
 
         $annotation = null;
         // 繁体语言组
-        $traditionalArr = ['zh-cht', 'zh-tw', 'zh-hk', 'zh-mo'];
+        $traditionalArr = ['zhcht', 'zhtw', 'zhhk', 'zhmo'];
         // 是否是繁体语言
         $isTraditional = in_array($lang, $traditionalArr);
         foreach ($info['annotation'] as $item) {
