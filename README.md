@@ -72,6 +72,8 @@ class ExampleConstant extends Constant
     const RETRIEVE_PASSWORD = 2;
     /**
      * @message("注销账号")
+     * @messageEn("Account cancellation")
+     * @messageZhTW("註銷賬號")
      */
     const CANCEL_ACCOUNT = 3;
 
@@ -115,6 +117,9 @@ ExampleConstant::getValue('REGISTER ');// 1
 
 // 返回中文描述
 ExampleConstant::getDescription(ExampleConstant::CANCEL_ACCOUNT);// 注销账号
+
+// 返回指定语言描述，参数二为语言文化代码，在枚举注解中无需“-”
+ExampleConstant::getDescriptionI18n(ExampleConstant::CANCEL_ACCOUNT, 'en');// Account cancellation
 
 // 补充：也可以先实例化常量对象，然后再根据对象实例来获取常量描述
 $responseEnum = new ExampleEnum(ExampleEnum::CANCEL_ACCOUNT);
