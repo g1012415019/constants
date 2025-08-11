@@ -4,25 +4,28 @@ namespace Asfop\Tests\Constants;
 
 use Asfop\Constants\Constant;
 
+/**
+ * @name("app订购模式")
+ * @targetTable("yjy_app_order")
+ * @targetTableColumn("buy_type")
+ */
 class ExampleConstant extends Constant
 {
     /**
-     * @message("登录")
+     * @message("Custom specification purchase")
+     * @color("primary")
      */
-    const SIGN_IN = 0;
+    const CUSTOM = 1;
     /**
-     * @message("注册")
+     * @message("Purchase per event")
+     * @color("success")
      */
-    const REGISTER = 1;
+    const ONCE = 2;
     /**
-     * @message("找回密码")
+     * @message("名称")
+     * @color("#3AA1DA")
      */
-    const RETRIEVE_PASSWORD = 2;
-    /**
-     * @message("注销账号")
-     * @color("danger")
-     */
-    const CANCEL_ACCOUNT = 3;
+    const TOW = 2;
 
     /**
      * 重新从注解里面拿到的Message
